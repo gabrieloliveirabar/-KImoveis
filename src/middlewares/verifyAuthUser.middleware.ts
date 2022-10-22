@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { AppError } from "../errors/appError";
+
 
 export const verifyAuthUserMiddleware = (
   req: Request,

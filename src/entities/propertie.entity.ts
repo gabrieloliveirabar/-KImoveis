@@ -9,7 +9,9 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
-import { Adress } from "./adress.entity";
+import { v4 as uuid } from "uuid";
+
+import { Address } from "./adress.entity";
 import { Categorie } from "./categorie.entity";
 import { Schedule_user_propertie } from "./schedule_user_propertie.entity";
 
@@ -24,20 +26,25 @@ export class Propertie {
   @Column()
   size: number;
 
+  @Column({default:false})
+  sold:boolean
+
   @CreateDateColumn()
   createAt: Date;
 
   @UpdateDateColumn()
   updateAt: Date;
 
-  @OneToOne(()=>Adress)
+  @OneToOne(()=>Address)
   @JoinColumn()
-  adress:Adress
-
-  @OneToMany(()=>Schedule_user_propertie,schedule_user_propertie=>schedule_user_propertie.propertie)
-  schedule_user_propertie:Schedule_user_propertie[]
+  address:Address
 
   @ManyToOne(()=>Categorie)
   categorie:Categorie
-
+  
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }

@@ -3,17 +3,18 @@ import {
     Column,
     PrimaryColumn,
   } from "typeorm"; 
+  import { v4 as uuid } from "uuid";
 
-@Entity("adress")
-export class Adress{
+@Entity("address")
+export class Address{
 
     @PrimaryColumn("uuid")
-    id:string
+    readonly id:string
 
     @Column()
     district:string
 
-    @Column()
+    @Column({length:8})
     zipCode:string
 
     @Column({nullable:true})
@@ -22,7 +23,12 @@ export class Adress{
     @Column()
     city:string
 
-    @Column()
+    @Column({length:2})
     state:string
-
+    
+    constructor() {
+      if (!this.id) {
+        this.id = uuid();
+      }
+    }
 }

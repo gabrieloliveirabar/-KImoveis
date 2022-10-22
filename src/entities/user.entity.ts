@@ -37,8 +37,7 @@ import { Schedule_user_propertie } from "./schedule_user_propertie.entity";
     @Exclude()
     password: string;
 
-    @OneToMany(()=>Schedule_user_propertie,schedule_user_propertie=>schedule_user_propertie.propertie)
-  schedule_user_propertie:Schedule_user_propertie[]
+    
   
     constructor() {
       if (!this.id) {
