@@ -7,7 +7,7 @@ import { IUserRequest } from "../../interfaces/users";
 
 import  AppDataSource  from "../../data-source";
 
-export const userCreateService = async ({name, email, isAdm, password}: IUserRequest)=>{
+export const userCreateService = async ({name, email, isAdm, password}: IUserRequest): Promise<User> =>{
     const userRepository = AppDataSource.getRepository(User)
 
     const users =  await userRepository.find()

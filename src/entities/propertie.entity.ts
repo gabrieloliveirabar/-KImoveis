@@ -41,6 +41,10 @@ export class Propertie {
 
   @ManyToOne(()=>Categorie)
   categorie:Categorie
+
+
+  @OneToMany(type=>Schedule_user_propertie,(schedule_user_propertie) => schedule_user_propertie.propertie )
+  schedule:Schedule_user_propertie[]
   
   constructor() {
     if (!this.id) {

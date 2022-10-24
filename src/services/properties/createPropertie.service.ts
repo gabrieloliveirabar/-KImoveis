@@ -11,7 +11,7 @@ export const createPropertieService = async (
   { value, size }: IPropertyRequest,
   addressObj: IAddressRequest,
   categoryId: string
-) => {
+):Promise<Propertie> => {
   const propertieRepository = AppDataSource.getRepository(Propertie);
   const categorieRepository = AppDataSource.getRepository(Categorie);
   const adressRepository = AppDataSource.getRepository(Address);
@@ -33,7 +33,7 @@ export const createPropertieService = async (
   const alreadyAddress = addresses.find(
     (adr) => adr.zipCode === adress.zipCode
   );
-  console.log(alreadyAddress);
+
   if (alreadyAddress) {
     throw new AppError("Address already exists");
   }

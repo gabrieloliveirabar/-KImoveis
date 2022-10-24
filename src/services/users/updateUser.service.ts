@@ -9,7 +9,7 @@ export const updateUserService = async (
   id: string,
   isAdmin: boolean,
   idUser: string
-) => {
+): Promise<User> => {
   const userRepository = AppDataSource.getRepository(User);
   const findUser = await userRepository.findOneBy({ id });
   const key = Object.keys(data);
@@ -38,7 +38,5 @@ export const updateUserService = async (
   });
   const user = await userRepository.findOneBy({ id });
 
-  return user;
-
- 
+  return user!;
 };

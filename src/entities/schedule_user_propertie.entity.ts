@@ -4,9 +4,9 @@ import {
     PrimaryColumn,
     OneToMany,
     ManyToOne,
-    ManyToMany,
-    JoinTable,
+  
   } from "typeorm"; 
+  import { v4 as uuid } from "uuid";
 import { Propertie } from "./propertie.entity";
 import { User } from "./user.entity";
 
@@ -14,19 +14,23 @@ import { User } from "./user.entity";
 export class Schedule_user_propertie{
 
     @PrimaryColumn("uuid")
-    id:string
+    readonly id:string
 
     @Column()
-    date:string
+    date:Date
 
-    @Column()
+    @Column({type:"time"})
     hour:string
 
-    @ManyToMany(type=>Propertie,{eager:true})
-    @JoinTable()
-    propertie:Propertie[]
+    @ManyToOne(type=>Propertie)
+    propertie:Propertie
 
-    @ManyToMany(type=>User,{eager:true})
-    @JoinTable()
-    user:User[]
+    @ManyToOne(type=>User)
+    user:User
+
+    constructor() {
+      if (!this.id) {
+        this.id = uuid();
+      }
+    }
 }

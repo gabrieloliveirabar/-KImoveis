@@ -5,6 +5,7 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     OneToMany,
+    ManyToOne,
   } from "typeorm";
   import { v4 as uuid } from "uuid";
   import { Exclude } from "class-transformer";
@@ -37,6 +38,8 @@ import { Schedule_user_propertie } from "./schedule_user_propertie.entity";
     @Exclude()
     password: string;
 
+    @OneToMany(type=>Schedule_user_propertie, (schedule_user_propertie) => schedule_user_propertie.user)
+    schedule:Schedule_user_propertie[]
     
   
     constructor() {

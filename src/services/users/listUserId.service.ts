@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/appError";
 
-export const listUserIdService = async (id: string) => {
+export const listUserIdService = async (id: string): Promise<User> => {
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({ id });
   
