@@ -5,12 +5,12 @@ import { AppError } from "../../errors/appError";
 export const listCategorieIdService = async (id: string): Promise<Categorie> => {
   const categorieRepository = AppDataSource.getRepository(Categorie);
   const categories = await categorieRepository.find({relations: {
-    propertie: true,
+    properties: true,
   }});
-  const categorie = await categories.find((categ)=>categ.id === id)
+  const categorie =  categories.find((categ)=>categ.id === id)
 
   if (!categorie) {
-    throw new AppError("user not found");
+    throw new AppError("user not found",404);
   }
   return categorie;
 };

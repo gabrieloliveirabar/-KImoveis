@@ -11,8 +11,10 @@ export const updateUserController = async (req: Request, res: Response) => {
     const updateUser = await updateUserService(user, id, isAdm, idUser);
     return res.status(200).json({ message: "user Updated" });
   } catch (error) {
-    if(error instanceof AppError){
-        return res.status(401).send({error: error.name, message: error.message})
+    if (error instanceof AppError) {
+      return res
+        .status(error.statusCode)
+        .send({ error: error.name, message: error.message });
     }
   }
 };

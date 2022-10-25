@@ -5,7 +5,7 @@ export const listCategorieService = async () => {
   const categorieRepository = AppDataSource.getRepository(Categorie);
   const categorie = await categorieRepository.find({
     relations: {
-      propertie: true,
+      properties: true,
     },
   });
 

@@ -9,7 +9,7 @@ import { IScheduleRequest } from "../../interfaces/schedules";
 export const createSchedulesService = async (
   { date, hour, propertyId }: IScheduleRequest,
   userId: string
-):Promise<Schedule_user_propertie> => {
+): Promise<void> => {
   const schedulesRepository = AppDataSource.getRepository(
     Schedule_user_propertie
   );
@@ -19,7 +19,7 @@ export const createSchedulesService = async (
   const properties = await propertieRepository.find();
   const propertie = properties.find((proper) => proper.id === propertyId);
   if (!propertie) {
-    throw new AppError("Propertie not exists");
+    throw new AppError("Propertie not exists",404);
   }
 
   const users = await userRepository.find();
@@ -41,7 +41,8 @@ export const createSchedulesService = async (
   }
 
   const hourSchedule = schedule.hour.split(":");
-  if (Number(hourSchedule[0]) < 8 || Number(hourSchedule[0]) > 18) {
+
+  if (Number(hourSchedule[0]) < 8 || Number(hourSchedule[0]) >= 18) {
     throw new AppError("time unavailable for scheduling");
   }
 
@@ -63,6 +64,4 @@ export const createSchedulesService = async (
 
   schedulesRepository.create(schedule);
   await schedulesRepository.save(schedule);
-
-  return schedule;
 };

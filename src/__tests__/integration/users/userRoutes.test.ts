@@ -6,7 +6,7 @@ import {mockedAdmin, mockedAdminLogin, mockedUser, mockedUserLogin} from "../../
 
 
 describe("/users", () => {
-    let connection: DataSource
+    let connection:DataSource;
 
     beforeAll(async() => {
         await AppDataSource.initialize().then((res) => {

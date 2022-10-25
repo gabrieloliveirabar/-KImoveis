@@ -18,7 +18,7 @@ import { Schedule_user_propertie } from "./schedule_user_propertie.entity";
 @Entity("propertie")
 export class Propertie {
   @PrimaryColumn("uuid")
-  id: string;
+  readonly id: string;
 
   @Column({ type: "decimal" })
   value: number;
@@ -26,26 +26,28 @@ export class Propertie {
   @Column()
   size: number;
 
-  @Column({default:false})
-  sold:boolean
+  @ManyToOne(() => Categorie, (category) => category.properties)
+  category: string;
+
+  @Column({ default: false })
+  sold: boolean;
 
   @CreateDateColumn()
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updateAt: Date;
+  updatedAt: Date;
 
-  @OneToOne(()=>Address)
+  @OneToOne(() => Address)
   @JoinColumn()
-  address:Address
+  address: Address;
 
-  @ManyToOne(()=>Categorie)
-  categorie:Categorie
+  @OneToMany(
+    (type) => Schedule_user_propertie,
+    (schedule_user_propertie) => schedule_user_propertie.propertie
+  )
+  schedules: Schedule_user_propertie[];
 
-
-  @OneToMany(type=>Schedule_user_propertie,(schedule_user_propertie) => schedule_user_propertie.propertie )
-  schedule:Schedule_user_propertie[]
-  
   constructor() {
     if (!this.id) {
       this.id = uuid();

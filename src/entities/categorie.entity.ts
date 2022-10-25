@@ -10,8 +10,8 @@ export class Categorie {
   @Column({ length: 30 })
   name: string;
 
-  @OneToMany(() => Propertie, (propertie) => propertie.categorie)
-  propertie: Propertie[];
+  @OneToMany(() => Propertie, (propertie) => propertie.category)
+  properties: Propertie[];
 
   constructor() {
     if (!this.id) {
